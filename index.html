@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punjab Public Transport - Real-Time Tracking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <i class="fas fa-bus"></i>
+                        <span>BUS TRACKER BY Team Delta</span>
+                    </div>
+                    <div class="govt-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Government of India</span>
+                    </div>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#tracking" class="nav-link">Live Tracking</a>
+                    <a href="#booking" class="nav-link">Book Ticket</a>
+                    <a href="#routes" class="nav-link">Routes</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn-secondary" onclick="openLoginModal()">Login</button>
+                    <button class="btn-primary" onclick="openSignupModal()">Register</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Safe, Reliable & Real-Time</h1>
+                    <h2>Public Transport for Punjab</h2>
+                    <p>Track your bus in real-time, book tickets securely, and travel with confidence across Punjab's cities.</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary btn-large" onclick="scrollToSection('tracking')">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Track Now
+                        </button>
+                        <button class="btn-secondary btn-large" onclick="scrollToSection('booking')">
+                            <i class="fas fa-ticket-alt"></i>
+                            Book Ticket
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="trust-indicators">
+                        <div class="trust-item">
+                            <i class="fas fa-lock"></i>
+                            <span>Secure SSL</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-shield-check"></i>
+                            <span>Government Verified</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Real-Time Updates</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Tracking Section -->
+    <section id="tracking" class="tracking-section">
+        <div class="container">
+            <h2 class="section-title">Live Bus Tracking</h2>
+            <div class="tracking-interface">
+                <div class="search-panel">
+                    <div class="search-form">
+                        <div class="form-group">
+                            <label for="route-select">Select Route</label>
+                            <select id="route-select" class="form-control">
+                                <option value="">Choose your route</option>
+                                <option value="ludhiana-chandigarh">Ludhiana - Chandigarh</option>
+                                <option value="amritsar-jalandhar">Amritsar - Jalandhar</option>
+                                <option value="patiala-mohali">Patiala - Mohali</option>
+                                <option value="bathinda-faridkot">Bathinda - Faridkot</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bus-number">Bus Number (Optional)</label>
+                            <input type="text" id="bus-number" class="form-control" placeholder="Enter bus number">
+                        </div>
+                        <button class="btn-primary" onclick="trackBus()">
+                            <i class="fas fa-search"></i>
+                            Track Bus
+                        </button>
+                    </div>
+                    <div class="live-buses" id="live-buses">
+                        <h3>Live Buses on Route</h3>
+                        <div class="bus-list" id="bus-list">
+                            <!-- Dynamic content will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <div class="map-placeholder" id="map-area">
+                        <i class="fas fa-map"></i>
+                        <p>Select a route to view live bus locations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="booking-section">
+        <div class="container">
+            <h2 class="section-title">Book Your Ticket</h2>
+            <div class="booking-form-container">
+                <form class="booking-form" id="booking-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="from-city">From</label>
+                            <select id="from-city" class="form-control" required>
+                                <option value="">Select departure city</option>
+                                <option value="ludhiana">Ludhiana</option>
+                                <option value="chandigarh">Chandigarh</option>
+                                <option value="amritsar">Amritsar</option>
+                                <option value="jalandhar">Jalandhar</option>
+                                <option value="patiala">Patiala</option>
+                                <option value="mohali">Mohali</option>
+                                <option value="bathinda">Bathinda</option>
+                                <option value="faridkot">Faridkot</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="to-city">To</label>
+                            <select id="to-city" class="form-control" required>
+                                <option value="">Select destination city</option>
+                                <option value="ludhiana">Ludhiana</option>
+                                <option value="chandigarh">Chandigarh</option>
+                                <option value="amritsar">Amritsar</option>
+                                <option value="jalandhar">Jalandhar</option>
+                                <option value="patiala">Patiala</option>
+                                <option value="mohali">Mohali</option>
+                                <option value="bathinda">Bathinda</option>
+                                <option value="faridkot">Faridkot</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="travel-date">Travel Date</label>
+                            <input type="date" id="travel-date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="passengers">Passengers</label>
+                            <select id="passengers" class="form-control" required>
+                                <option value="1">1 Passenger</option>
+                                <option value="2">2 Passengers</option>
+                                <option value="3">3 Passengers</option>
+                                <option value="4">4 Passengers</option>
+                                <option value="5">5+ Passengers</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary btn-large">
+                        <i class="fas fa-ticket-alt"></i>
+                        Search Buses
+                    </button>
+                </form>
+                
+                <!-- Available Buses Results -->
+                <div class="available-buses" id="available-buses" style="display: none;">
+                    <h3>Available Buses</h3>
+                    <div class="bus-results" id="bus-results">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Security Section -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-content">
+                <div class="trust-header">
+                    <i class="fas fa-certificate"></i>
+                    <h2>Your Trust, Our Priority</h2>
+                </div>
+                <div class="trust-features">
+                    <div class="trust-feature">
+                        <i class="fas fa-lock"></i>
+                        <h3>Secure Payments</h3>
+                        <p>All transactions are protected with bank-level encryption</p>
+                    </div>
+                    <div class="trust-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Government Verified</h3>
+                        <p>Official Punjab Government transport service</p>
+                    </div>
+                    <div class="trust-feature">
+                        <i class="fas fa-clock"></i>
+                        <h3>Real-Time Tracking</h3>
+                        <p>Live GPS tracking for complete transparency</p>
+                    </div>
+                    <div class="trust-feature">
+                        <i class="fas fa-headset"></i>
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock customer assistance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-bus"></i>
+                        <span>Punjab Transport</span>
+                    </div>
+                    <p>Official public transport service by Government of Punjab</p>
+                    <div class="security-badges">
+                        <span class="security-badge">
+                            <i class="fas fa-lock"></i>
+                            SSL Secured
+                        </span>
+                        <span class="security-badge">
+                            <i class="fas fa-certificate"></i>
+                            Gov Verified
+                        </span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#tracking">Live Tracking</a></li>
+                        <li><a href="#booking">Book Ticket</a></li>
+                        <li><a href="#routes">Routes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-phone"></i> Helpline: 1800-XXX-XXXX</p>
+                        <p><i class="fas fa-envelope"></i> transport@punjab.gov.in</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Transport Bhawan, Chandigarh</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Government of Punjab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="login-email">Email or Phone</label>
+                    <input type="text" id="login-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn-primary btn-full">Login</button>
+                <p class="modal-footer-text">
+                    Don't have an account? <a href="#" onclick="switchModal('loginModal', 'signupModal')">Register here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+            <h2>Create Your Account</h2>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-phone">Phone Number</label>
+                    <input type="tel" id="signup-phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn-primary btn-full">Create Account</button>
+                <p class="modal-footer-text">
+                    Already have an account? <a href="#" onclick="switchModal('signupModal', 'loginModal')">Login here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
